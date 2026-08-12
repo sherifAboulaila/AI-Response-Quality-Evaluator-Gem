@@ -1,53 +1,177 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="AI Response Quality Evaluator Gem — a practical Gemini-based assistant for human-in-the-loop AI response quality assessment.">
-<title>AI Response Quality Evaluator Gem</title>
-<style>
-:root{--bg:#07101c;--panel:#0e1b2d;--panel2:#101f34;--text:#eef6ff;--muted:#9db0c8;--line:#263a55;--a:#67d7a4;--b:#67b9ff;--warn:#ffd166;--bad:#ff7185;--shadow:0 24px 70px #0008}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 8% 0%,#174b42 0,transparent 28%),radial-gradient(circle at 92% 5%,#173d66 0,transparent 30%),var(--bg);color:var(--text);font:15px/1.7 Inter,Segoe UI,Tahoma,Arial,sans-serif}.wrap{max-width:1180px;margin:auto;padding:24px 20px 70px}.nav{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:70px}.brand{font-weight:900;font-size:18px}.brand span{color:var(--a)}.navlinks{display:flex;gap:8px;flex-wrap:wrap}.navlinks a,.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:11px;padding:9px 13px;font-weight:800;font-size:13px}.navlinks a{border:1px solid var(--line);color:var(--text);background:#ffffff06}.hero{max-width:940px;margin-bottom:30px}.ey{display:inline-block;color:var(--a);font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.hero h1{font-size:clamp(40px,7vw,76px);line-height:1.01;letter-spacing:-.055em;margin:12px 0 18px}.hero h1 span{color:var(--a)}.hero p{font-size:19px;color:var(--muted);max-width:820px;margin:0}.cta{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0 55px}.btn.primary{background:linear-gradient(135deg,var(--a),var(--b));color:#06111a}.btn.secondary{border:1px solid var(--line);color:var(--text);background:#ffffff08}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.card{background:linear-gradient(180deg,#13243add,#0a1728e8);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}.card h2{margin:0 0 12px;font-size:19px}.muted{color:var(--muted)}textarea{width:100%;min-height:125px;resize:vertical;background:#07101c;border:1px solid var(--line);border-radius:14px;color:var(--text);padding:14px;font:inherit;outline:0}textarea:focus{border-color:var(--b);box-shadow:0 0 0 3px #67b9ff20}.label{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin:12px 0 6px}.controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}button{font:inherit;cursor:pointer;border:0}.score{display:flex;align-items:center;gap:18px;padding-bottom:18px;border-bottom:1px solid var(--line)}.ring{width:108px;height:108px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--a) 0deg,#22334b 0deg);position:relative;flex:none}.ring:after{content:"";position:absolute;inset:9px;background:var(--panel);border-radius:50%}.ring strong{position:relative;z-index:1;font-size:29px}.verdict{font-size:21px;font-weight:900}.metric{margin-top:14px}.metricrow{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}.bar{height:8px;background:#22334b;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--a),var(--b));border-radius:inherit;transition:width .4s}.insights{display:grid;gap:9px;margin-top:17px}.insight{border:1px solid var(--line);border-radius:12px;padding:11px;background:#ffffff03}.insight b{display:block}.section{margin-top:70px}.section h2{font-size:32px;letter-spacing:-.035em;margin:0 0 10px}.section>p{color:var(--muted);max-width:820px}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px}.problem{padding:20px;border-left:3px solid var(--bad);background:#ff71850a;border-radius:14px}.solution{padding:20px;border-left:3px solid var(--a);background:#67d7a40a;border-radius:14px}.workflow{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:20px}.wf{border:1px solid var(--line);background:#ffffff04;border-radius:13px;padding:14px;text-align:center;font-weight:800;font-size:13px}.arrow{color:var(--a);display:flex;align-items:center;justify-content:center}.criteria{width:100%;border-collapse:collapse;margin-top:18px;overflow:hidden;border:1px solid var(--line);border-radius:14px}.criteria th,.criteria td{padding:13px 14px;border-bottom:1px solid var(--line);text-align:left}.criteria th{color:var(--a);background:#ffffff05}.criteria tr:last-child td{border-bottom:0}.demo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.quote{border:1px solid var(--line);border-radius:14px;padding:17px;background:#07101c}.bad{color:var(--bad);font-weight:900}.good{color:var(--a);font-weight:900}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.feature{border:1px solid var(--line);border-radius:15px;padding:16px;background:#ffffff03}.feature strong{display:block;margin-bottom:4px}.architecture{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;border:1px solid var(--line);border-radius:15px;padding:20px;background:#050c15;color:#bfe4ff}.note{border:1px solid #385574;border-radius:14px;padding:15px;background:#67b9ff08;color:var(--muted)}.footer{margin-top:65px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:12px}
-@media(max-width:900px){.grid,.twocol,.demo{grid-template-columns:1fr}.workflow{grid-template-columns:1fr 1fr}.features{grid-template-columns:1fr}.nav{margin-bottom:45px}.navlinks{display:none}}
-</style>
-</head>
-<body>
-<div class="wrap">
-<nav class="nav"><div class="brand">AI<span>Response</span> Quality Evaluator</div><div class="navlinks"><a href="#evaluator">Evaluator</a><a href="#framework">Framework</a><a href="#case">Case Study</a><a href="https://github.com/sherifAboulaila/AI-Response-Quality-Evaluator-Gem" target="_blank">GitHub ↗</a></div></nav>
-<section class="hero">
-<div class="ey">Gemini-based AI Quality Assurance</div>
-<h1>Measure AI response quality — <span>not just how good it sounds.</span></h1>
-<p>A practical human-in-the-loop evaluation assistant for checking accuracy, relevance, completeness, reasoning, instruction following, clarity, and safety before an AI answer is trusted or reused.</p>
-<div class="cta"><a class="btn primary" href="https://share.gemini.google/ltQI2GzIpt1U" target="_blank">🚀 Try the Gem</a><a class="btn secondary" href="https://github.com/sherifAboulaila/AI-Response-Quality-Evaluator-Gem" target="_blank">💻 View GitHub</a><a class="btn secondary" href="#evaluator">🧪 Run Live Demo</a></div>
-</section>
-<section id="evaluator" class="grid">
-<section class="card"><h2>01 · Evaluate a response</h2><p class="muted">Paste the original request and the AI-generated answer. This browser demo is a lightweight companion to the Gemini Gem.</p><div class="label"><span>User prompt</span><span id="pc">0 chars</span></div><textarea id="prompt" placeholder="Example: Explain why a project budget increased by 20% and suggest three actions to control costs."></textarea><div class="label"><span>AI response</span><span id="rc">0 chars</span></div><textarea id="response" placeholder="Paste the AI-generated answer here..."></textarea><div class="controls"><button class="btn primary" onclick="evaluate()">Evaluate response</button><button class="btn secondary" onclick="demo()">Load demo</button><button class="btn secondary" onclick="clearAll()">Clear</button></div></section>
-<section class="card"><h2>02 · Evaluation report</h2><div class="score"><div class="ring" id="ring"><strong id="total">—</strong></div><div><div class="verdict" id="verdict">Ready to evaluate</div><div class="muted" id="summary">Your score and improvement priorities will appear here.</div></div></div><div id="metrics"></div><div class="insights" id="insights"><div class="insight"><b>Quality dimensions</b><span class="muted">Accuracy · Relevance · Completeness · Reasoning · Instruction Following · Clarity · Safety</span></div></div></section>
-</section>
-<section class="section"><div class="ey">01 · The problem</div><h2>Convincing is not the same as correct.</h2><div class="twocol"><div class="problem"><b>AI responses can look polished while still containing:</b><p class="muted">Factual errors, missing requirements, unsupported claims, contradictions, hallucinations, overconfident language, or unsafe recommendations.</p></div><div class="solution"><b>The solution</b><p class="muted">Turn repetitive manual review into a structured evaluation workflow with explicit criteria, scoring, error detection, and actionable improvement feedback.</p></div></div></section>
-<section class="section"><div class="ey">02 · How it works</div><h2>From prompt to decision.</h2><div class="workflow"><div class="wf">USER<br>PROMPT</div><div class="arrow">→</div><div class="wf">AI<br>RESPONSE</div><div class="arrow">→</div><div class="wf">QUALITY<br>ANALYSIS</div><div class="arrow">→</div><div class="wf">SCORE +<br>VERDICT</div></div><p class="muted">The workflow ends with improvement recommendations and a human review point for high-stakes decisions.</p></section>
-<section id="framework" class="section"><div class="ey">03 · Evaluation framework</div><h2>Seven dimensions. One explainable score.</h2><p>The weights below are the design choices of this project, not an industry-wide standard. They prioritize factual correctness while preserving usefulness and safety.</p><table class="criteria"><thead><tr><th>Criterion</th><th>Weight</th><th>What is checked?</th></tr></thead><tbody><tr><td>Accuracy</td><td>30%</td><td>Factual correctness, unsupported certainty, contradictions.</td></tr><tr><td>Relevance</td><td>15%</td><td>Directly addresses the request without distracting detours.</td></tr><tr><td>Completeness</td><td>15%</td><td>Covers important requirements, constraints and requested outputs.</td></tr><tr><td>Reasoning</td><td>15%</td><td>Conclusions follow from coherent logic, calculations or evidence.</td></tr><tr><td>Instruction Following</td><td>10%</td><td>Respects the requested format, tone and constraints.</td></tr><tr><td>Clarity &amp; Style</td><td>10%</td><td>Readable, structured and unambiguous communication.</td></tr><tr><td>Safety</td><td>5%</td><td>Avoids harmful, deceptive or inappropriate guidance.</td></tr></tbody></table></section>
-<section id="case" class="section"><div class="ey">04 · Live case study</div><h2>A simple factual error — detected immediately.</h2><div class="demo"><div class="quote"><b>User prompt</b><p>What is the capital of Australia?</p><b>AI response</b><p>“Sydney is the capital of Australia.”</p></div><div class="quote"><div class="bad">FAIL · 42/100</div><p><b>Major issue:</b> factual accuracy failure.</p><p class="muted">The answer gives an incorrect capital. The correct answer is Canberra. Because the core request is factual, this error materially affects the usefulness of the response.</p><div class="good">Action: correct the factual claim and verify critical facts before reuse.</div></div></div></section>
-<section class="section"><div class="ey">05 · Key capabilities</div><h2>Built for practical AI quality review.</h2><div class="features"><div class="feature"><strong>🎯 Accuracy Evaluation</strong><span class="muted">Find factual errors and unsupported certainty.</span></div><div class="feature"><strong>🔎 Hallucination Risk</strong><span class="muted">Flag claims that need verification instead of treating fluency as evidence.</span></div><div class="feature"><strong>📋 Instruction Following</strong><span class="muted">Check whether the response actually follows the user's constraints.</span></div><div class="feature"><strong>📊 Structured Scoring</strong><span class="muted">Turn qualitative review into a consistent /100 score.</span></div><div class="feature"><strong>⚖️ Human-in-the-loop</strong><span class="muted">Keep human verification where accuracy or risk matters.</span></div><div class="feature"><strong>💡 Actionable Feedback</strong><span class="muted">Prioritize the improvements that matter most instead of only reporting a score.</span></div></div></section>
-<section class="section"><div class="ey">06 · Project architecture</div><h2>Simple by design.</h2><div class="architecture">USER PROMPT + AI RESPONSE
-          ↓
-     GEM INSTRUCTIONS
-          ↓
-  QUALITY EVALUATION RUBRIC
-          ↓
- SCORE + FINDINGS + VERDICT
-          ↓
- IMPROVEMENT RECOMMENDATIONS
-          ↓
-   HUMAN REVIEW / REUSE</div><div class="note" style="margin-top:14px"><b>Positioning:</b> This is a practical Gemini-based evaluation assistant, not a replacement for large-scale automated evaluation frameworks. It is intentionally optimized for fast, explainable human review.</div></section>
-<section class="section"><div class="ey">07 · Portfolio positioning</div><h2>What this project demonstrates.</h2><div class="twocol"><div class="card"><b>Skills demonstrated</b><p class="muted">Prompt Engineering · Gemini Gems · Evaluation Design · Quality Assurance · Rubric Design · Human-in-the-loop AI · UX for AI Tools · Front-end Prototyping</p></div><div class="card"><b>Intended users</b><p class="muted">AI Trainers · Prompt Engineers · AI Evaluators · Content Reviewers · Chatbot Testers · Educators · Teams reviewing AI-assisted work</p></div></div></section>
-<div class="footer"><span>Designed by <b>Sherif Aboulaila</b> · AI / Prompt Engineering Portfolio Project</span><span><a href="https://share.gemini.google/ltQI2GzIpt1U" target="_blank" style="color:var(--a)">Try Gem</a> · <a href="https://github.com/sherifAboulaila/AI-Response-Quality-Evaluator-Gem" target="_blank" style="color:var(--a)">GitHub</a></span></div>
-</div>
-<script>
-const $=id=>document.getElementById(id);['prompt','response'].forEach(id=>$(id).addEventListener('input',()=>$(id[0]+'c').textContent=$(id).value.length.toLocaleString()+' chars'));
-function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
-function evaluate(){const p=$('prompt').value.trim(),r=$('response').value.trim();if(!p||!r){$('summary').textContent='Add both a user prompt and an AI response first.';return}let s=55;if(r.length>120)s+=7;if(r.length>350)s+=4;if(p.length>50)s+=3;if(/[.!?]/.test(r))s+=3;if(/\b(example|because|therefore|however|step|first|second|third|recommend|suggest)\b/i.test(r))s+=7;if(/\d/.test(r)&&/\d/.test(p))s+=4;if(/\b(i don't know|uncertain|cannot verify|may vary|depends)\b/i.test(r))s+=3;if(/\b(always|never|guaranteed|100%|definitely)\b/i.test(r))s-=8;if(r.length<60)s-=18;s=Math.max(0,Math.min(100,s));let dims=[['Accuracy',s+3],['Relevance',s+5],['Completeness',s-1],['Reasoning',s],['Instruction Following',s-2],['Clarity & Style',s+2],['Safety',s+6]].map(x=>[x[0],Math.max(25,Math.min(98,x[1]))]);$('total').textContent=s;$('ring').style.background=`conic-gradient(var(--a) ${s*3.6}deg,#22334b 0deg)`;$('verdict').textContent=s>=85?'Excellent response':s>=70?'Good — needs refinement':s>=50?'Mixed quality — improve before relying on it':'Weak response — substantial revision needed';$('summary').textContent='A structured screening score. For high-stakes use, verify factual claims against reliable sources.';$('metrics').innerHTML=dims.map(d=>`<div class="metric"><div class="metricrow"><span>${esc(d[0])}</span><b>${d[1]}/100</b></div><div class="bar"><div class="fill" style="width:${d[1]}%"></div></div></div>`).join('');let tips=[];if(r.length<120)tips.push(['Completeness','The response is very short; add important assumptions, reasoning and actionable details.']);if(/\b(always|never|guaranteed|100%|definitely)\b/i.test(r))tips.push(['Accuracy','Absolute language can create false certainty. Add evidence, conditions or uncertainty where appropriate.']);if(p.length>120&&r.length<250)tips.push(['Instruction Following','Compare the response explicitly against every important requirement or constraint in the prompt.']);if(!/\b(because|therefore|however|step|first|second|recommend|suggest)\b/i.test(r))tips.push(['Reasoning','Make the logic visible: explain why the conclusion or recommendation follows from the information available.']);if(!tips.length)tips.push(['Priority','The response passes the basic quality screen. Verify important factual claims before high-stakes use.']);$('insights').innerHTML=tips.slice(0,3).map(t=>`<div class="insight"><b>${esc(t[0])}</b><span class="muted">${esc(t[1])}</span></div>`).join('')}
-function demo(){$('prompt').value='What is the capital of Australia?';$('response').value='Sydney is the capital of Australia.';$('pc').textContent=$('prompt').value.length+' chars';$('rc').textContent=$('response').value.length+' chars';evaluate()}
-function clearAll(){$('prompt').value='';$('response').value='';$('pc').textContent='0 chars';$('rc').textContent='0 chars';$('total').textContent='—';$('ring').style.background='conic-gradient(var(--a) 0deg,#22334b 0deg)';$('verdict').textContent='Ready to evaluate';$('summary').textContent='Your score and improvement priorities will appear here.';$('metrics').innerHTML='';$('insights').innerHTML='<div class="insight"><b>Quality dimensions</b><span class="muted">Accuracy · Relevance · Completeness · Reasoning · Instruction Following · Clarity · Safety</span></div>'}
-</script>
-</body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="AI Response Quality Evaluator Gem — professional Gemini-based AI response evaluation assistant."><title>AI Response Quality Evaluator Gem</title><style>:root{--bg:#07101c;--panel:#0e1b2d;--text:#eef6ff;--muted:#9db0c8;--line:#263a55;--a:#67d7a4;--b:#67b9ff;--bad:#ff7185}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 8% 0%,#174b42,transparent 28%),radial-gradient(circle at 92% 5%,#173d66,transparent 30%),var(--bg);color:var(--text);font:15px/1.7 Inter,Segoe UI,Tahoma,Arial,sans-serif}.wrap{max-width:1180px;margin:auto;padding:24px 20px 70px}.nav{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:65px}.brand{font-weight:900;font-size:19px}.brand span{color:var(--a)}.nav a,.btn{display:inline-flex;text-decoration:none;border-radius:11px;padding:10px 14px;font-weight:900}.nav a{border:1px solid var(--line);color:var(--text);background:#ffffff06}.navlinks{display:flex;gap:8px;flex-wrap:wrap}.ey{color:var(--a);font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.hero{max-width:960px}.hero h1{font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-.05em;margin:10px 0 18px}.hero h1 span{color:var(--a)}.hero p{font-size:19px;color:var(--muted);max-width:850px}.cta{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0 55px}.primary{background:linear-gradient(135deg,var(--a),var(--b));color:#06111a}.secondary{border:1px solid var(--line);color:var(--text);background:#ffffff08}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:linear-gradient(180deg,#13243add,#0a1728e8);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 24px 70px #0008}.card h2{margin:0 0 10px}.muted{color:var(--muted)}textarea{width:100%;min-height:125px;background:#07101c;border:1px solid var(--line);border-radius:13px;color:var(--text);padding:13px;font:inherit;resize:vertical}.label{color:var(--muted);font-size:12px;margin:12px 0 5px}.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}button{font:inherit;border:0;cursor:pointer}.result{display:block}.score{display:flex;gap:16px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:17px}.ring{width:105px;height:105px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--a) 0deg,#22334b 0deg);position:relative;flex:none}.ring:after{content:"";position:absolute;inset:9px;background:var(--panel);border-radius:50%}.ring strong{position:relative;z-index:1;font-size:28px}.verdict{font-size:20px;font-weight:900}.metric{margin-top:13px}.metricrow{display:flex;justify-content:space-between;font-size:13px}.bar{height:8px;background:#22334b;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--a),var(--b))}.section{margin-top:70px}.section h2{font-size:31px;margin:0 0 10px}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px}.problem,.solution,.note{padding:18px;border-radius:14px}.problem{border-left:3px solid var(--bad);background:#ff71850a}.solution{border-left:3px solid var(--a);background:#67d7a40a}.workflow{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:18px}.wf{border:1px solid var(--line);border-radius:12px;padding:13px;text-align:center}.arrow{display:flex;align-items:center;justify-content:center;color:var(--a)}table{width:100%;border-collapse:collapse;margin-top:18px}th,td{padding:12px;border:1px solid var(--line);text-align:left}th{color:var(--a);background:#ffffff05}.demo{display:grid;grid-template-columns:1fr 1fr;gap:14px}.quote{border:1px solid var(--line);border-radius:14px;padding:16px;background:#07101c}.bad{color:var(--bad);font-weight:900}.good{color:var(--a);font-weight:900}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.feature{border:1px solid var(--line);border-radius:14px;padding:15px}.feature b{display:block;color:var(--a)}.code{direction:ltr;text-align:left;white-space:pre-wrap;background:#050b13;border:1px solid var(--line);border-radius:14px;padding:18px;font:12px/1.65 Consolas,monospace;max-height:650px;overflow:auto}.copybar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.footer{margin-top:65px;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}@media(max-width:850px){.grid,.twocol,.demo{grid-template-columns:1fr}.features{grid-template-columns:1fr}.workflow{grid-template-columns:1fr 1fr}.navlinks{display:none}}</style></head><body><div class="wrap"><nav class="nav"><div class="brand">AI Response <span>Quality Evaluator</span> Gem</div><div class="navlinks"><a href="#evaluator">Evaluator</a><a href="#framework">Framework</a><a href="#instructions">Instructions</a><a href="https://github.com/sherifAboulaila/AI-Response-Quality-Evaluator-Gem" target="_blank">GitHub ↗</a></div></nav><section class="hero"><div class="ey">Gemini-based AI Quality Assurance</div><h1>Evaluate AI responses. <span>Detect errors. Improve results.</span></h1><p>A practical human-in-the-loop assistant for evaluating accuracy, relevance, completeness, reasoning, instruction following, hallucination risk, clarity, style, and safety.</p><div class="cta"><a class="btn primary" href="https://gemini.google.com/gem/17HK1McPcKuw19Qxe3Hk41FVbLUnKUA5I?usp=sharing" target="_blank" rel="noopener">🚀 Open the Gem in Gemini</a><a class="btn secondary" href="https://github.com/sherifAboulaila/AI-Response-Quality-Evaluator-Gem" target="_blank" rel="noopener">💻 View GitHub</a><a class="btn secondary" href="#evaluator">🧪 Run Demo</a></div></section><section id="evaluator" class="grid"><section class="card"><h2>01 · Evaluate a response</h2><p class="muted">Use this lightweight browser demo. For the full evaluation workflow, open the Gemini Gem above.</p><div class="label">User prompt</div><textarea id="q" placeholder="Example: What is the capital of Australia?"></textarea><div class="label">AI response</div><textarea id="a" placeholder="Paste the AI-generated answer..."></textarea><div class="controls"><button class="btn primary" onclick="evaluateDemo()">Evaluate</button><button class="btn secondary" onclick="demo()">Load demo</button><button class="btn secondary" onclick="clearAll()">Clear</button></div></section><section class="card"><h2>02 · Evaluation report</h2><div class="score"><div class="ring" id="ring"><strong id="score">—</strong></div><div><div class="verdict" id="verdict">Ready to evaluate</div><div class="muted" id="summary">The demo provides a quick local signal; the Gemini Gem performs the full structured evaluation.</div></div></div><div id="metrics"></div></section></section><section class="section"><div class="ey">The problem</div><h2>Convincing is not the same as correct.</h2><div class="twocol"><div class="problem"><b>AI responses can appear polished while containing:</b><p class="muted">Factual errors, missing requirements, unsupported claims, contradictions, hallucinations, or unsafe recommendations.</p></div><div class="solution"><b>The solution</b><p class="muted">A repeatable evaluation workflow that compares the response to the original request, scores explicit quality dimensions, identifies errors, and recommends improvements.</p></div></div></section><section class="section"><div class="ey">Workflow</div><h2>From prompt to decision.</h2><div class="workflow"><div class="wf">USER<br>PROMPT</div><div class="arrow">→</div><div class="wf">AI<br>RESPONSE</div><div class="arrow">→</div><div class="wf">QUALITY<br>ANALYSIS</div><div class="arrow">→</div><div class="wf">SCORE +<br>VERDICT</div></div></section><section id="framework" class="section"><div class="ey">Evaluation framework</div><h2>Seven dimensions. One explainable score.</h2><table><tr><th>Criterion</th><th>Weight</th><th>Focus</th></tr><tr><td>Accuracy</td><td>30%</td><td>Factual correctness and unsupported certainty.</td></tr><tr><td>Relevance</td><td>15%</td><td>Direct response to the user's request.</td></tr><tr><td>Completeness</td><td>15%</td><td>Coverage of important requested parts.</td></tr><tr><td>Reasoning</td><td>15%</td><td>Visible, verifiable logic and conclusions.</td></tr><tr><td>Instruction Following</td><td>10%</td><td>Format, language, tone and constraints.</td></tr><tr><td>Clarity &amp; Style</td><td>10%</td><td>Readable, organized and appropriately concise.</td></tr><tr><td>Safety</td><td>5%</td><td>Responsible handling of sensitive or risky content.</td></tr></table><p class="muted">These weights are the design choices of this project, not a universal industry standard. If a criterion is not applicable, the Gem should not penalize the response artificially.</p></section><section class="section"><div class="ey">Case study</div><h2>Factual error detection</h2><div class="demo"><div class="quote"><b>User prompt</b><p>What is the capital of Australia?</p><b>AI response</b><p>“Sydney is the capital of Australia.”</p></div><div class="quote"><div class="bad">FAIL · 42/100</div><p><b>Major issue:</b> the core factual claim is incorrect.</p><p class="muted">The correct capital is Canberra. Because the task asks for a factual answer, the error materially affects usefulness.</p><div class="good">Improvement: correct the claim and verify critical facts before reuse.</div></div></div></section><section class="section"><div class="ey">Capabilities</div><h2>Designed for practical AI quality review.</h2><div class="features"><div class="feature"><b>🎯 Accuracy</b><span class="muted">Find factual errors without treating unfamiliar information as automatically false.</span></div><div class="feature"><b>🔎 Hallucination</b><span class="muted">Distinguish unsupported or invented claims from ordinary uncertainty.</span></div><div class="feature"><b>📋 Instruction Following</b><span class="muted">Check requested language, format, limits and constraints.</span></div><div class="feature"><b>📊 Structured Scoring</b><span class="muted">Convert review into a consistent /100 result.</span></div><div class="feature"><b>⚖️ Human-in-the-loop</b><span class="muted">Keep human verification for high-stakes decisions.</span></div><div class="feature"><b>💡 Actionable Feedback</b><span class="muted">Explain what matters and how to improve it.</span></div></div></section><section id="instructions" class="section"><div class="ey">Gem instructions</div><h2>Instructions used by the Gemini Gem</h2><div class="copybar"><span class="muted">The full operating specification is shown below.</span><button class="btn primary" onclick="copyInstructions()">📋 Copy Instructions</button></div><div class="code" id="instructionText">IDENTITY
+
+أنت خبير متخصص في تقييم جودة استجابات نماذج الذكاء الاصطناعي (AI Response Quality Evaluator).
+
+تمتلك خبرة في:
+- تقييم دقة الإجابات.
+- اكتشاف الأخطاء والهلوسة (Hallucinations).
+- مقارنة الإجابة بالسؤال الأصلي.
+- تقييم مدى اكتمال الإجابة.
+- تقييم جودة الاستدلال والمنطق.
+- اكتشاف المعلومات غير المدعومة أو غير المؤكدة.
+- تقييم الالتزام بتعليمات المستخدم.
+- تقييم اللغة والوضوح والتنظيم.
+- تقييم السلامة والملاءمة.
+- التفريق بين الخطأ الواقعي والخلاف التفسيري أو الرأي.
+- تقييم جودة الإجابات في المهام النصية، التقنية، التعليمية، التحليلية، والترجمية.
+
+مهمتك الأساسية هي أن تكون "مقيّمًا موضوعيًا"، وليس مدافعًا عن إجابة الذكاء الاصطناعي ولا مهاجمًا لها.
+
+TASK
+
+عندما يرسل المستخدم:
+1. سؤالًا أو Prompt.
+2. إجابة صادرة من نموذج ذكاء اصطناعي.
+3. أو صورة/لقطة شاشة تحتوي على سؤال وإجابة.
+4. أو أكثر من إجابة للمقارنة.
+
+قم بتقييم الإجابة بشكل منهجي. ابدأ أولًا بفهم السؤال الأصلي وما الذي يطلبه بالضبط.
+
+1. ACCURACY — الدقة
+هل المعلومات الواردة صحيحة؟ حدد الأخطاء الواقعية بوضوح. لا تعتبر المعلومة خاطئة لمجرد أنها غير مألوفة لك. إذا لم تكن قادرًا على التأكد منها، صِغ الحكم على أنها "غير مؤكدة" بدلًا من الجزم بأنها خاطئة.
+
+2. RELEVANCE — الصلة
+هل الإجابة تجيب عن السؤال مباشرة؟ هل تحتوي على معلومات جانبية غير ضرورية؟ هل ابتعدت عن المطلوب؟
+
+3. COMPLETENESS — الاكتمال
+هل أجابت عن جميع أجزاء السؤال؟ هل يوجد جزء مهم تم تجاهله؟
+
+4. REASONING — جودة الاستدلال
+إذا كانت المهمة تتطلب استدلالًا، فافحص الاتساق المنطقي، صحة الاستنتاج، الافتراضات غير المبررة، التناقضات، والقفزات المنطقية. لا تقيّم أو تطلب سلسلة التفكير الداخلية للنموذج؛ قيّم فقط الاستدلال الظاهر والنتيجة التي يمكن التحقق منها.
+
+5. INSTRUCTION FOLLOWING — الالتزام بالتعليمات
+تحقق من الصيغة، القيود، اللغة المطلوبة، عدد الكلمات أو النقاط عند طلبها، وعدم تجاهل تعليمات أساسية.
+
+6. HALLUCINATION — الهلوسة
+ابحث عن أسماء أو أرقام أو تواريخ مخترعة، مصادر غير موجودة، اقتباسات غير موثوقة، ادعاءات شديدة الثقة دون أساس، تفاصيل مختلقة، ومعلومات لا يمكن استنتاجها من المعطيات. لا تستخدم كلمة "هلوسة" لمجرد وجود خطأ بسيط؛ استخدمها عندما توجد مؤشرات على اختلاق أو تقديم معلومات غير مؤكدة كأنها حقائق.
+
+7. CLARITY — الوضوح
+هل الإجابة سهلة الفهم؟ هل اللغة واضحة؟ هل التنظيم جيد؟ هل يوجد غموض غير ضروري؟
+
+8. STYLE — الأسلوب
+قيّم الاحترافية، الاختصار المناسب، التنظيم، النبرة، وخلو الإجابة من التكرار غير الضروري.
+
+9. SAFETY — السلامة
+إذا كان الموضوع حساسًا أو عالي المخاطر، تحقق من أن الإجابة لا تقدم معلومات خطرة أو مضللة أو غير مسؤولة.
+
+10. OVERALL QUALITY — الجودة الإجمالية
+بعد تحليل جميع المعايير، أعطِ حكمًا نهائيًا.
+
+SCORING SYSTEM
+
+استخدم تقييمًا من 100:
+- 90–100 = ممتاز
+- 80–89 = جيد جدًا
+- 70–79 = جيد
+- 60–69 = مقبول مع ملاحظات
+- 50–59 = ضعيف
+- أقل من 50 = ضعيف جدًا / غير صالح
+
+استخدم هذا التوزيع الأساسي:
+Accuracy: 30%
+Relevance: 15%
+Completeness: 15%
+Reasoning: 15%
+Instruction Following: 10%
+Clarity & Style: 10%
+Safety: 5%
+
+إذا كان أحد المعايير غير مناسب للمهمة، لا تعاقب الإجابة بشكل مصطنع؛ وضّح أنه "غير منطبق" وأعد توزيع الحكم بشكل منطقي.
+
+EVALUATION PROCESS
+
+STEP 1 — فهم المطلوب: حدد باختصار ما الذي كان السؤال يطلبه.
+STEP 2 — تحديد نوع المهمة: سؤال معرفي، منطقي، رياضي، ترجمة، تلخيص، كتابة، برمجة، تحليل، تقييم محتوى، تعليم، مقارنة، أو مهمة متعددة الخطوات.
+STEP 3 — فحص الإجابة: حلل الإجابة مقابل السؤال وليس بمعزل عنه.
+STEP 4 — تحديد الأخطاء: افصل بين خطأ مؤكد، معلومة غير مؤكدة، ملاحظة أسلوبية، اختلاف في الرأي، ونقص في الإجابة.
+STEP 5 — تحديد التأثير: Critical — جوهري، Major — مهم، Minor — بسيط، Cosmetic — شكلي.
+STEP 6 — إعطاء الدرجة: احسب درجة نهائية من 100.
+STEP 7 — الحكم النهائي: PASS / PASS WITH MINOR ISSUES / NEEDS IMPROVEMENT / FAIL.
+STEP 8 — تقديم تحسين: إذا كانت الإجابة غير مثالية، قدم صياغة مختصرة لما يجب تغييره.
+
+OUTPUT FORMAT
+
+## AI Response Evaluation
+
+### 1. الحكم النهائي
+**النتيجة:** PASS / PASS WITH MINOR ISSUES / NEEDS IMPROVEMENT / FAIL
+**الدرجة:** XX/100
+**التصنيف:** ممتاز / جيد جدًا / جيد / مقبول / ضعيف / ضعيف جدًا
+
+### 2. ملخص التقييم
+اكتب 2–4 جمل تلخص جودة الإجابة.
+
+### 3. التقييم التفصيلي
+| المعيار | الدرجة | الملاحظات |
+| Accuracy | XX/30 | ... |
+| Relevance | XX/15 | ... |
+| Completeness | XX/15 | ... |
+| Reasoning | XX/15 | ... |
+| Instruction Following | XX/10 | ... |
+| Clarity & Style | XX/10 | ... |
+| Safety | XX/5 | ... |
+
+### 4. الأخطاء المكتشفة
+استخدم جدولًا يفصل Fact / Logic / Instruction / Missing ويحدد Critical / Major / Minor / Cosmetic. إذا لم توجد أخطاء: "لم يتم العثور على أخطاء جوهرية."
+
+### 5. المعلومات غير المؤكدة
+اذكر أي ادعاء لا يمكن التأكد من صحته. لا تحوّل عدم المعرفة إلى اتهام بالهلوسة.
+
+### 6. نقاط القوة
+اذكر أهم 2–5 نقاط إيجابية.
+
+### 7. ما الذي يحتاج إلى تحسين؟
+اذكر التعديلات المطلوبة بوضوح.
+
+### 8. الخلاصة
+اكتب حكمًا نهائيًا قصيرًا يوضح هل الإجابة صالحة للاستخدام أم تحتاج إلى تعديل.
+
+COMPARISON MODE
+
+إذا أرسل المستخدم إجابتين أو أكثر، فعّل وضع المقارنة. قارن Accuracy, Relevance, Completeness, Reasoning, Instruction Following, Clarity, Safety ثم أعطِ Winner: Response A / Response B / Tie. اشرح السبب باختصار. لا تختار الإجابة الأطول تلقائيًا؛ الأفضل هي الأكثر صحة وملاءمة واكتمالًا.
+
+IMAGE MODE
+
+إذا أرسل المستخدم صورة أو Screenshot: اقرأ السؤال والإجابة الظاهرة، استخرج النص قدر الإمكان، وإذا كان جزء غير واضح صرّح بذلك، ولا تخترع الكلمات غير المقروءة، ثم طبّق نفس المنهجية.
+
+FACT-CHECK MODE
+
+إذا كانت الإجابة تحتوي على ادعاءات واقعية مهمة وكان الوصول إلى الإنترنت أو مصادر خارجية متاحًا: تحقق من الادعاءات المهمة من مصادر موثوقة، مع أولوية للمصادر الرسمية أو الأولية. إذا لم يكن التحقق الخارجي متاحًا، لا تدّعِ أنك تحققت واستخدم "غير مؤكد" عندما يكون ذلك مناسبًا.
+
+IMPORTANT RULES
+
+1. لا تجامل الإجابة.
+2. لا ترفض الإجابة لمجرد اختلاف الأسلوب.
+3. لا تعتبر الرأي الشخصي خطأً واقعيًا.
+4. لا تعتبر نقص التفاصيل خطأ إذا كان السؤال لا يحتاجها.
+5. لا تعتبر الإجابة الطويلة أفضل تلقائيًا.
+6. لا تعتبر الإجابة القصيرة سيئة تلقائيًا.
+7. افهم السؤال قبل تقييم الإجابة.
+8. لا تخترع مصادر أو مراجع.
+9. لا تدّعِ استخدام أدوات أو مصادر لم تستخدمها.
+10. إذا كانت المعطيات غير كافية للحكم، قل ذلك بوضوح.
+11. افصل دائمًا بين "خطأ مؤكد" و"معلومة غير مؤكدة".
+12. عند وجود أكثر من تفسير معقول للسؤال، اذكر ذلك قبل إصدار الحكم.
+13. لا تكشف أو تطلب سلسلة التفكير الداخلية للنموذج.
+14. ركز على النتيجة والاستدلال الظاهر القابل للتقييم.
+15. كن موضوعيًا وقابلًا للتكرار في أحكامك.
+
+SPECIAL MODE — QUICK EVALUATION
+
+إذا كتب المستخدم "تقييم سريع" قدم فقط:
+**النتيجة:** PASS / PASS WITH MINOR ISSUES / NEEDS IMPROVEMENT / FAIL
+**الدرجة:** XX/100
+**أهم مشكلة:** ...
+**الخلاصة:** ...
+
+SPECIAL MODE — DEEP EVALUATION
+
+إذا كتب المستخدم "تحليل عميق" قم بتحليل أكثر تفصيلًا، مع تفكيك السؤال، تحليل كل ادعاء رئيسي، تحديد الأخطاء، تحديد درجة الثقة في كل حكم، تحليل التعليمات، تقييم جودة الاستدلال الظاهر، وتقديم نسخة محسنة من الإجابة.
+
+LANGUAGE
+
+استخدم لغة المستخدم تلقائيًا. إذا كان المستخدم يكتب بالعربية، أجب بالعربية. إذا كان يكتب بالإنجليزية، أجب بالإنجليزية. إذا طلب لغة محددة، التزم بها. في التقييمات العربية استخدم المصطلحات الإنجليزية بين قوسين عند الحاجة.
+
+FINAL PRINCIPLE
+
+هدفك ليس فقط إعطاء درجة. هدفك إنتاج تقييم: دقيق + موضوعي + قابل للتفسير + قابل للتكرار + عملي. يجب أن يستطيع المستخدم الاعتماد على تقييمك لاتخاذ قرار سريع حول جودة استجابة الذكاء الاصطناعي.</div></section><section class="section"><div class="ey">Portfolio positioning</div><h2>Practical, explainable, human-in-the-loop.</h2><div class="twocol"><div class="card"><b>What this demonstrates</b><p class="muted">Prompt Engineering · Gemini Gems · Evaluation Rubric Design · AI Quality Assurance · Human-in-the-loop workflows · AI UX · Front-end prototyping.</p></div><div class="card"><b>Best-fit users</b><p class="muted">AI evaluators, prompt engineers, trainers, educators, content reviewers, chatbot testers, and teams reviewing AI-assisted work.</p></div></div></section><footer class="footer"><span>Designed by <b>Sherif Aboulaila</b> · AI / Prompt Engineering Portfolio Project</span><span><a href="https://gemini.google.com/gem/17HK1McPcKuw19Qxe3Hk41FVbLUnKUA5I?usp=sharing" target="_blank" style="color:var(--a)">Try Gem</a> · <a href="https://github.com/sherifAboulaila/AI-Response-Quality-Evaluator-Gem" target="_blank" style="color:var(--a)">GitHub</a></span></footer></div><script>const $=id=>document.getElementById(id);function evaluateDemo(){let q=$('q').value.trim(),a=$('a').value.trim();if(!q||!a){$('summary').textContent='Please enter both the prompt and response.';return}let s=72;if(a.length<25)s-=8;if(a.length>80)s+=5;if(/sydney/i.test(a)&&/capital of australia/i.test(q))s=42;if(/canberra/i.test(a)&&/capital of australia/i.test(q))s=98;s=Math.max(0,Math.min(100,s));$('score').textContent=s;$('ring').style.background=`conic-gradient(var(--a) ${s*3.6}deg,#22334b 0deg)`;$('verdict').textContent=s>=90?'PASS — Excellent':s>=80?'PASS — Very Good':s>=70?'PASS WITH MINOR ISSUES':'NEEDS IMPROVEMENT';$('summary').textContent=s<60?'A significant issue was detected in this demo.':'Demo score only. Use the Gemini Gem for the full rubric, comparison, image mode and fact-check workflow.';let v=[['Accuracy',s*.30,30],['Relevance',s*.15,15],['Completeness',s*.15,15],['Reasoning',s*.15,15],['Instruction Following',s*.10,10],['Clarity & Style',s*.10,10],['Safety',s*.05,5]];$('metrics').innerHTML=v.map(x=>`<div class="metric"><div class="metricrow"><span>${x[0]}</span><b>${Math.round(x[1])}/${x[2]}</b></div><div class="bar"><div class="fill" style="width:${s}%"></div></div></div>`).join('')}function demo(){$('q').value='What is the capital of Australia?';$('a').value='Sydney is the capital of Australia.';evaluateDemo()}function clearAll(){$('q').value='';$('a').value='';$('score').textContent='—';$('verdict').textContent='Ready to evaluate';$('summary').textContent='The demo provides a quick local signal; the Gemini Gem performs the full structured evaluation.';$('ring').style.background='conic-gradient(var(--a) 0deg,#22334b 0deg)';$('metrics').innerHTML=''}async function copyInstructions(){let t=$('instructionText').innerText;try{await navigator.clipboard.writeText(t);alert('Instructions copied successfully.')}catch(e){alert('Select and copy the instructions manually.')}}</script></body></html>
